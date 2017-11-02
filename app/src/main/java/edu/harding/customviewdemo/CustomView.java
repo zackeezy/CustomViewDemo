@@ -63,4 +63,8 @@ public class CustomView extends View {
         canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2,
                 canvas.getWidth() < canvas.getHeight() ? canvas.getWidth() / 2 : canvas.getHeight() / 2, blue);
     }
+
+    public void update(){
+
+    }
 }
