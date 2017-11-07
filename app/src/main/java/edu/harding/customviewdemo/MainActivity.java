@@ -1,5 +1,7 @@
 package edu.harding.customviewdemo;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -26,8 +28,26 @@ public class MainActivity extends AppCompatActivity {
             //Code to run on this background thread
 
             while (true){
-                mCustomView.update();
+                mThreadHandler.sendEmptyMessage(0);
+
+                try{
+                    Thread.sleep(10);
+                }
+                catch(Exception e){
+                    //ignore
+                }
             }
+        }
+    };
+
+    //When instatiate Handler with no arguments, the Handler by default will handle messages from the UI thread
+    //and will run on the UI thread
+    private Handler mThreadHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            //Update the UI
+            mCustomView.update();
+            mCustomView.draw();
         }
     };
 }

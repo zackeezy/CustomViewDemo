@@ -7,13 +7,20 @@ import android.graphics.Paint;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.graphics.drawable.shapes.Shape;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 public class CustomView extends View {
 
     private ShapeDrawable mShape;
+
+    private int mLeft = 10;
+
+    private int mTop = 10;
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -32,15 +39,7 @@ public class CustomView extends View {
         canvas.drawRGB(220,220,220);
 
         //Set shape's location
-        int left, right, top, bottom;
-        left = 100;
-        top = 5;
-        right = left + 100;
-        bottom = top + 400;
-        mShape.setBounds(left, top, right, bottom);
-
-        //display shape
-        mShape.draw(canvas);
+        mShape.setBounds(mLeft, mTop, mLeft + 100, mTop + 150);
 
         //determines visible attributes of what's being painted
         Paint paint = new Paint();
@@ -62,9 +61,18 @@ public class CustomView extends View {
 
         canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2,
                 canvas.getWidth() < canvas.getHeight() ? canvas.getWidth() / 2 : canvas.getHeight() / 2, blue);
+
+        //display shape
+        mShape.draw(canvas);
     }
 
     public void update(){
+        mLeft++;
+        mTop++;
+    }
 
+    public void draw(){
+        //Redraws by triggering the onDraw
+        invalidate();
     }
 }
